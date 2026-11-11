@@ -23,7 +23,7 @@ Abrir http://localhost:4200 (con el backend levantado).
 | Editar | `PUT /api/tarjetas/{id}` |
 | Eliminar | `DELETE /api/tarjetas/{id}` |
 
-## Estructura
+## Estructura.
 
 ```
 src/app
