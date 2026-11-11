@@ -1,0 +1,28 @@
+<article class="tarjeta" [class.bloqueada]="tarjeta().estado === 'BLOQUEADA'">
+  <div class="frente">
+    <div class="fila">
+      <span class="logo">bip!</span>
+      <span class="tipo">{{ tipoTexto() }}</span>
+    </div>
+    <div class="numero">{{ numeroFormateado() }}</div>
+    <div class="fila abajo">
+      <div>
+        <div class="titular">{{ tarjeta().titular }}</div>
+        @if (tarjeta().alias) {
+          <div class="alias">{{ tarjeta().alias }}</div>
+        }
+      </div>
+      <div class="saldo">
+        <span class="saldo-etiqueta">Saldo</span>
+        {{ tarjeta().saldo | clp }}
+      </div>
+    </div>
+  </div>
+  <footer class="pie">
+    <app-estado-badge [estado]="tarjeta().estado" />
+    <div class="acciones">
+      <a class="btn btn-chico" [routerLink]="['/tarjetas', tarjeta().id, 'editar']">Editar</a>
+      <button type="button" class="btn btn-chico btn-peligro-suave" (click)="eliminar.emit(tarjeta())">Eliminar</button>
+    </div>
+  </footer>
+</article>

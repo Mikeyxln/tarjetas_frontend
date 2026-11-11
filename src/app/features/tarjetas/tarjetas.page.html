@@ -1,0 +1,69 @@
+<header class="encabezado">
+  <div>
+    <h1>Mis tarjetas Bip!</h1>
+    <p class="subtitulo">Registra, edita y elimina tus tarjetas.</p>
+  </div>
+  <a class="btn btn-primario" routerLink="/tarjetas/nueva">+ Nueva tarjeta</a>
+</header>
+
+<section class="resumen" aria-label="Resumen">
+  <div class="dato">
+    <span class="dato-valor">{{ store.resumen().total }}</span>
+    <span class="dato-texto">Tarjetas</span>
+  </div>
+  <div class="dato">
+    <span class="dato-valor">{{ store.resumen().activas }}</span>
+    <span class="dato-texto">Activas</span>
+  </div>
+  <div class="dato">
+    <span class="dato-valor">{{ store.resumen().saldoTotal | clp }}</span>
+    <span class="dato-texto">Saldo total</span>
+  </div>
+</section>
+
+<section class="filtros">
+  <input
+    class="campo"
+    type="search"
+    placeholder="Buscar por número, titular o alias"
+    aria-label="Buscar tarjetas"
+    [value]="store.busqueda()"
+    (input)="buscar($event)"
+  />
+  <select class="campo" aria-label="Filtrar por estado" [value]="store.filtroEstado()" (change)="filtrar($event)">
+    <option value="TODAS">Todos los estados</option>
+    <option value="ACTIVA">Activas</option>
+    <option value="BLOQUEADA">Bloqueadas</option>
+  </select>
+</section>
+
+@if (store.cargando()) {
+  <p class="mensaje">Cargando tarjetas…</p>
+} @else if (store.error(); as mensajeError) {
+  <div class="mensaje mensaje-error">
+    <p>{{ mensajeError }}</p>
+    <button type="button" class="btn" (click)="store.cargar()">Reintentar</button>
+  </div>
+} @else if (store.tarjetas().length === 0) {
+  <div class="mensaje">
+    <p>Aún no tienes tarjetas registradas.</p>
+    <a class="btn btn-primario" routerLink="/tarjetas/nueva">Registrar la primera</a>
+  </div>
+} @else if (store.tarjetasFiltradas().length === 0) {
+  <p class="mensaje">Ninguna tarjeta coincide con la búsqueda.</p>
+} @else {
+  <section class="grilla">
+    @for (tarjeta of store.tarjetasFiltradas(); track tarjeta.id) {
+      <app-tarjeta-bip-card [tarjeta]="tarjeta" (eliminar)="pedirConfirmacion($event)" />
+    }
+  </section>
+}
+
+@if (porEliminar(); as tarjeta) {
+  <app-confirm-dialog
+    titulo="Eliminar tarjeta"
+    [mensaje]="'¿Seguro que quieres eliminar la tarjeta ' + tarjeta.numero + ' de ' + tarjeta.titular + '? Esta acción no se puede deshacer.'"
+    (confirmar)="confirmarEliminacion()"
+    (cancelar)="cancelarEliminacion()"
+  />
+}

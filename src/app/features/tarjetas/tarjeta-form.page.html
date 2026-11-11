@@ -1,0 +1,86 @@
+<header class="encabezado">
+  <a class="volver" routerLink="/tarjetas">← Volver</a>
+  <h1>{{ esEdicion() ? 'Editar tarjeta' : 'Nueva tarjeta' }}</h1>
+</header>
+
+@if (cargando()) {
+  <p class="aviso">Cargando datos de la tarjeta…</p>
+} @else if (errorCarga(); as mensaje) {
+  <div class="aviso aviso-error">
+    <p>{{ mensaje }}</p>
+    <a class="btn" routerLink="/tarjetas">Volver al listado</a>
+  </div>
+} @else {
+  <form class="formulario" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+    @if (erroresServidor().length > 0) {
+      <div class="aviso aviso-error" role="alert">
+        @for (texto of erroresServidor(); track $index) {
+          <p>{{ texto }}</p>
+        }
+      </div>
+    }
+
+    <div class="grupo">
+      <label for="numero">Número de tarjeta</label>
+      <input id="numero" class="campo" formControlName="numero" inputmode="numeric" maxlength="10" placeholder="Ej: 12345678" />
+      @if (esEdicion()) {
+        <small class="ayuda">El número no se puede modificar.</small>
+      } @else if (invalido('numero')) {
+        <small class="error">Ingresa entre 8 y 10 dígitos.</small>
+      }
+    </div>
+
+    <div class="grupo">
+      <label for="titular">Titular</label>
+      <input id="titular" class="campo" formControlName="titular" placeholder="Nombre del titular" />
+      @if (invalido('titular')) {
+        <small class="error">El titular es obligatorio (máximo {{ reglas.titularMaxLargo }} caracteres).</small>
+      }
+    </div>
+
+    <div class="grupo">
+      <label for="alias">Alias (opcional)</label>
+      <input id="alias" class="campo" formControlName="alias" placeholder="Ej: Mi Bip del trabajo" />
+      @if (invalido('alias')) {
+        <small class="error">Máximo {{ reglas.aliasMaxLargo }} caracteres.</small>
+      }
+    </div>
+
+    <div class="dos-columnas">
+      <div class="grupo">
+        <label for="tipo">Tipo de tarjeta</label>
+        <select id="tipo" class="campo" formControlName="tipo">
+          @for (tipo of tipos; track tipo.valor) {
+            <option [value]="tipo.valor">{{ tipo.texto }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label for="saldo">Saldo (CLP)</label>
+        <input id="saldo" class="campo" type="number" formControlName="saldo" min="0" step="100" />
+        @if (invalido('saldo')) {
+          <small class="error">El saldo debe estar entre $0 y $100.000.</small>
+        }
+      </div>
+    </div>
+
+    @if (esEdicion()) {
+      <div class="grupo">
+        <label for="estado">Estado</label>
+        <select id="estado" class="campo" formControlName="estado">
+          @for (estado of estados; track estado.valor) {
+            <option [value]="estado.valor">{{ estado.texto }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <div class="acciones">
+      <a class="btn" routerLink="/tarjetas">Cancelar</a>
+      <button type="submit" class="btn btn-primario" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando…' : esEdicion() ? 'Guardar cambios' : 'Registrar tarjeta' }}
+      </button>
+    </div>
+  </form>
+}

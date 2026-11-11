@@ -1,0 +1,58 @@
+/* Estilos globales: variables de diseño + clases reutilizables (botones, campos y avisos). */
+:root {
+  --primario: #e11d48;
+  --primario-oscuro: #be123c;
+  --oscuro: #0f172a;
+  --fondo: #f1f5f9;
+  --superficie: #ffffff;
+  --borde: #e2e8f0;
+  --texto: #0f172a;
+  --texto-suave: #64748b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .55rem 1rem; border-radius: .6rem; border: 1px solid var(--borde);
+  background: var(--superficie); color: var(--texto);
+  font: inherit; font-weight: 600; font-size: .9rem; text-decoration: none; cursor: pointer;
+}
+.btn:hover { background: #f8fafc; }
+.btn:focus-visible, .campo:focus-visible { outline: 2px solid var(--primario); outline-offset: 2px; }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-primario { background: var(--primario); border-color: var(--primario); color: #fff; }
+.btn-primario:hover { background: var(--primario-oscuro); }
+.btn-peligro { background: #dc2626; border-color: #dc2626; color: #fff; }
+.btn-peligro:hover { background: #b91c1c; }
+.btn-peligro-suave { color: #b91c1c; }
+.btn-peligro-suave:hover { background: #fef2f2; }
+.btn-chico { padding: .3rem .7rem; font-size: .8rem; }
+
+.campo {
+  width: 100%; padding: .55rem .75rem; border-radius: .6rem; border: 1px solid #cbd5e1;
+  background: var(--superficie); color: var(--texto); font: inherit;
+}
+.campo:disabled { background: #f1f5f9; color: var(--texto-suave); }
+.campo.ng-invalid.ng-touched { border-color: #dc2626; }
+
+/* ---- Avisos (toast) ---- */
+.toasts {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 60;
+  display: grid; gap: .5rem; max-width: min(24rem, calc(100vw - 2rem));
+}
+.toast {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  padding: .75rem 1rem; border-radius: .6rem;
+  background: #14532d; color: #fff; box-shadow: 0 8px 24px rgb(0 0 0 / .25);
+}
+.toast-error { background: #7f1d1d; }
+.toast-cerrar { background: none; border: 0; color: inherit; font-size: 1rem; cursor: pointer; line-height: 1; }

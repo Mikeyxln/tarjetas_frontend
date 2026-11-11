@@ -1,0 +1,20 @@
+.encabezado { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .9rem; }
+h1 { margin: 0; font-size: 1.6rem; }
+.subtitulo { margin: .2rem 0 0; color: var(--texto-suave); }
+
+.resumen { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .75rem; margin-bottom: .9rem; }
+.dato { background: var(--superficie); border: 1px solid var(--borde); border-radius: .8rem; padding: .8rem 1rem; display: grid; }
+.dato-valor { font-size: 1.4rem; font-weight: 700; }
+.dato-texto { font-size: .8rem; color: var(--texto-suave); }
+
+/* Buscador y filtro en UNA fila (se apilan solo en pantallas muy angostas) */
+.filtros { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: .9rem; }
+.filtros input { flex: 1 1 14rem; }
+.filtros select { flex: 0 0 13rem; width: 13rem; }
+
+/* 3 tarjetas por fila en pantallas normales; 2 o 1 si el ancho no alcanza. Nunca desborda hacia los lados. */
+.grilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .9rem; }
+
+.mensaje { background: var(--superficie); border: 1px dashed var(--borde); border-radius: .8rem; padding: 2rem 1rem; text-align: center; color: var(--texto-suave); display: grid; gap: .75rem; justify-items: center; }
+.mensaje p { margin: 0; }
+.mensaje-error { border-color: #fca5a5; color: #991b1b; }

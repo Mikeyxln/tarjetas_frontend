@@ -1,0 +1,21 @@
+:host { display: block; max-width: 36rem; margin: 0 auto; }
+.encabezado { margin-bottom: 1.25rem; }
+h1 { margin: .25rem 0 0; font-size: 1.6rem; }
+.volver { color: var(--texto-suave); text-decoration: none; font-size: .9rem; }
+.volver:hover { color: var(--primario); }
+
+.formulario { background: var(--superficie); border: 1px solid var(--borde); border-radius: 1rem; padding: 1.5rem; display: grid; gap: 1rem; }
+.grupo { display: grid; gap: .3rem; }
+label { font-size: .85rem; font-weight: 600; }
+.dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ayuda { color: var(--texto-suave); }
+.error { color: #b91c1c; }
+.acciones { display: flex; justify-content: flex-end; gap: .5rem; margin-top: .5rem; }
+
+.aviso { background: var(--superficie); border: 1px dashed var(--borde); border-radius: .8rem; padding: 1rem; color: var(--texto-suave); }
+.aviso p { margin: 0 0 .25rem; }
+.aviso-error { border-color: #fca5a5; color: #991b1b; background: #fef2f2; }
+
+@media (max-width: 30rem) {
+  .dos-columnas { grid-template-columns: 1fr; }
+}

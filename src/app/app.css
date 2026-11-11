@@ -1,0 +1,6 @@
+.barra { background: var(--oscuro); color: #fff; padding: .8rem 1rem; }
+.marca { color: inherit; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: .6rem; max-width: 70rem; margin: 0 auto; }
+.marca-logo { background: var(--primario); padding: .1rem .55rem; border-radius: .4rem; font-style: italic; font-weight: 800; letter-spacing: -.03em; }
+.barra { display: flex; }
+.barra .marca { width: 100%; }
+.contenido { max-width: 70rem; margin: 0 auto; padding: 1rem 1rem 1.25rem; }
